@@ -1,0 +1,13 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost/demo
+  jpa:
+    database: MYSQL
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    url: jdbc:mysql://mysql:3306/ghost
+    username: ghost
+    password: password
+    driver-class-name: com.mysql.jdbc.Driver

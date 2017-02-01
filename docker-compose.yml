@@ -1,0 +1,55 @@
+version : '2'
+
+services:
+
+  mongo:
+    image: mongo
+    environment:
+      MONGO_DBNAME: sample
+    volumes:
+      - 'mongo:/data/db'
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: sample
+      POSTGRES_PASSWORD: pass
+      POSTGRES_USERNAME: postgres
+    volumes:
+      - 'postgres:/var/lib/postgresql/data'
+      
+     
+
+  mysql:  
+   image: mysql
+   volumes:
+     - 'mysql:/var/lib/mysql'
+   environment:
+     MYSQL_ROOT_PASSWORD: root
+     MYSQL_DATABASE: ghost
+     MYSQL_USER: ghost
+     MYSQL_PASSWORD: password
+ 
+  web:
+    build : .
+    depends_on:
+      - "mysql"
+      - "mongo"
+      - "postgres"
+    ports:
+      - "8080:8080"
+    environment:
+      MONGO_DBNAME : sample
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ghost
+      MYSQL_USER: ghost
+      MYSQL_PASSWORD: password
+      POSTGRES: postgres
+      POSTGRES_DB: sample
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: pass
+
+volumes:
+  mysql:
+  mongo:
+  postgres:
